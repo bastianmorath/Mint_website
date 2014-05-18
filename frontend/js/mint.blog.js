@@ -28,11 +28,13 @@ mint.blog = ( function () {
       posts_filter : {
         subjects : [],
         sortBy : null
-      }
+      },
+      is_loaded : false
     },
     jqueryMap = {},
 
-    initModule, setJqueryMap, appendSquares, showPosts, onSubjectfilterChanged,
+    initModule, setJqueryMap, showModule, hideModule,
+    appendSquares, showPosts, onSubjectfilterChanged,
     formatSubjectSquares;
 
   //---------------------------BEGIN UTILITY FUNCTIONS-------------------------------
@@ -160,6 +162,14 @@ mint.blog = ( function () {
   //---------------------------END DOM FUNCTIONS -------------------------------
 
   //---------------------------BEGIN PUBLIC FUNCTIONS-------------------------------
+  showModule = function () {
+    jqueryMap.$container.css( { display : "" } );
+  };
+
+  hideModule = function () {
+    jqueryMap.$container.css( { display : "none" } );
+  };
+
   // Begin public function /initModule/
   // Purpose: initializes the blog module
   // Arguments: a jquery dom object
@@ -174,12 +184,20 @@ mint.blog = ( function () {
     appendSquares();
     showPosts();
 
+    stateMap.is_loaded = true;
+
     return true;
   };
   // End public function /initModule/
 
   return {
     initModule : initModule,
-    showPosts : showPosts
+    showPosts : showPosts,
+    showModule : showModule,
+    hideModule : hideModule,
+    isLoaded : function () { return stateMap.is_loaded; }
   };
+
+  //---------------------------END PUBLIC FUNCTIONS-------------------------------
+
 }());

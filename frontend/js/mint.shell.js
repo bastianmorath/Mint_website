@@ -20,7 +20,7 @@ mint.shell = ( function () {
   var
     configMap = {
       main_html : String() +
-        '<nav id="navbar">\n<ul id="popupAnimation">\n    <li><a id="navbar_blog" >HOME</a></li>\n    <li><a id="navbar_calendar" >VERANSTALTUNGEN</a></li>\n    <li><a id="navbar_about" >ABOUT</a></li>\n    <li><a href = "javascript:void(0)" onclick = "document.getElementById(\'light\').style.display = \'block\';\n                                document.getElementById(\'fade\').style.display = \'block\'">+</a></li>\n    <li><a id="navbar_login">Login</a></li>\n</ul>\n<div class="topLine"></div>\n</nav>\n<div id="contentHolder">\n    \n</div>'
+        '<nav id="navbar">\n<ul id="popupAnimation">\n    <li><a id="navbar_blog" >HOME</a></li>\n    <li><a id="navbar_calendar" >VERANSTALTUNGEN</a></li>\n    <li><a id="navbar_about" >ABOUT</a></li>\n    <li><a href = "javascript:void(0)" onclick = "document.getElementById(\'light\').style.display = \'block\';\n                                document.getElementById(\'fade\').style.display = \'block\'">+</a></li>\n    <li><a id="navbar_login">Login</a></li>\n</ul>\n<div class="topLine"></div>\n</nav>\n<div id="blogHolder">\n    \n</div>\n<div id="calendarHolder">\n\n</div>\n<div id="aboutHolder">\n\n</div>\n'
     },
     stateMap = {
       $container : null,
@@ -36,7 +36,9 @@ mint.shell = ( function () {
       $nav_items = $container.find( '.stest' );
     jqueryMap = {
       $container : $container,
-      $content_container : $container.find( '#contentHolder' ),
+      $blog_container : $container.find( '#blogHolder' ),
+      $calendar_container : $container.find( '#calendarHolder' ),
+      $about_container : $container.find( '#aboutHolder' ),
       $nav_blog_button : $container.find( '#navbar_blog' ),
       $nav_calendar_button : $container.find( '#navbar_calendar' ),
       $nav_about_button : $container.find( '#navbar_about' ),
@@ -61,31 +63,47 @@ mint.shell = ( function () {
       return;
     }
 
-    // remove the old module
-    jqueryMap.$content_container.empty();
     switch( stateMap.container_type ) {
       case 'blog':
         jqueryMap.$nav_blog_button.css( { color : "black" } );
+        mint.blog.hideModule();
         break;
       case 'calendar':
         jqueryMap.$nav_calendar_button.css( { color : "black" } );
+        mint.calendar.hideModule();
         break;
       case 'about':
         jqueryMap.$nav_about_button.css( { color : "black"  } );
+        mint.about.hideModule();
         break;
     }
 
     switch( container_type ) {
       case 'blog':
-        mint.blog.initModule( jqueryMap.$content_container );
+        if ( mint.blog.isLoaded() ) {
+          mint.blog.showModule();
+        }
+        else {
+          mint.blog.initModule( jqueryMap.$blog_container );
+        }
         jqueryMap.$nav_blog_button.css( { color : "#ef4035" } );
         break;
       case 'calendar':
-        mint.calendar.initModule( jqueryMap.$content_container );
+        if ( mint.calendar.isLoaded() ) {
+          mint.calendar.showModule();
+        }
+        else {
+          mint.calendar.initModule( jqueryMap.$calendar_container );
+        }
         jqueryMap.$nav_calendar_button.css( { color : "#ef4035" });
         break;
       case 'about':
-        mint.about.initModule( jqueryMap.$content_container );
+        if ( mint.about.isLoaded() ){
+          mint.about.showModule();
+        }
+        else {
+          mint.about.initModule( jqueryMap.$about_container );
+        }
         jqueryMap.$nav_about_button.css( { color : "#ef4035" } );
         break;
       default:

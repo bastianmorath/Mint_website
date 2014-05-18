@@ -12,8 +12,7 @@ and open the template in the editor.
     position: relative;
     bottom:0px;
     width: 700px;
-    height: 20px;
-    padding-bottom: 15px;
+    height: 37px;
     background-color: gainsboro;
 }
 
@@ -23,21 +22,21 @@ and open the template in the editor.
     margin-top:9px;
     width: 100px;
     position: relative;
-    height:8px;
+    height:15px;
 }
 .date{
     float: right;  
-    margin-right: 30px;
 }
 
 .numberOfComments{
     float: left;  
     margin-left:30px;
+    height:15px;
 
 }
 .showCommentsButton{
     float:none;
-    margin-left:250px;
+    margin-left:190px;
     width:40px;
 }
 
@@ -83,7 +82,7 @@ and open the template in the editor.
     color: #28282e;
     padding-top: 5px;
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     margin-left: 30px;
     border: 0; 
     height:20px; 
@@ -102,9 +101,10 @@ and open the template in the editor.
 .commentSendButton{
     color: #28282e;
     text-decoration: none;
-    position: absolute;
-    bottom:20px;
-    right: 80px;
+    position: relative;
+   float: right;
+    margin-right: 50px;
+    margin-bottom: 20px;
 
 }
 

@@ -20,8 +20,8 @@ mint.blog = ( function () {
   var
     configMap = {
       main_html: String()
-        + '<div class="sorting">\n    <!--\n    <div class = "sortSquareLike">Like</div>\n    <div class = "sortSquareDate">Date</div>\n    -->\n    <ul>\n\n        <li class="sortElement"><a href="">Sort by:</a></li>\n\n        <div class="chooseSorting">\n            <li class="sortElement"><a href="">Likes</a></li>\n            <li class="sortElement"><a href="">Date:</a></li>\n        </div>\n\n        <div class="dateElements">\n            <li class="sortElement"><a href="">2013</a></li>\n            <li class="sortElement"><a href="">2012</a></li>\n            <li class="sortElement"><a href="">2011</a></li>\n            <li class="sortElement"><a href="">2010</a></li>\n        </div>\n\n    </ul>\n</div>\n<div class="subjectSquares" >\n    <div class="centerwrapper">\n    </div>\n</div>',
-      nav_square_html : '<div class = "square" id ="square_%id%">%name%</div>'
+        + '<div class="sorting">\n   \n    <ul>\n\n        <li class="sortElement"><a href="">Sort by:</a></li>\n\n        <div class="chooseSorting">\n            <li class="sortElement"><a href="">Likes</a></li>\n            <li class="sortElement"><a href="">Date</a></li>\n        </div>\n<!--\n        <div class="dateElements">\n            <li class="sortElement"><a href="">2013</a></li>\n            <li class="sortElement"><a href="">2012</a></li>\n            <li class="sortElement"><a href="">2011</a></li>\n            <li class="sortElement"><a href="">2010</a></li>\n        </div>\n-->\n    </ul>\n</div>\n<div class="subjectSquares" >\n    <div class="centerwrapper">\n    </div>\n</div>',
+      nav_square_html : '<div class = "square" id ="square_%id%">%name%<div class="selectedBar"></div></div>'
     },
     stateMap = {
       $container : null,
@@ -95,6 +95,7 @@ mint.blog = ( function () {
       subjects = mint.model.subject.get();
 
     // Add a special version for the all Square
+
     subjects.push( { name : "All", subject_id : "all",
       css_map : { "background" : "lightslategrey" } } );
 
@@ -124,9 +125,9 @@ mint.blog = ( function () {
       var subject_id = $square.attr( 'id' ).split( '_' ) [1];
 
       if ( $.inArray( subject_id, stateMap.posts_filter.subjects ) === -1 ) {
-        $square.css( { color : "white" } );
+        $square.find('div').css({ display : "none" } );
       } else {
-        $square.css( { color : "red" } );
+        $square.find('div').css({ display : "block" } );
       }
     });
   };

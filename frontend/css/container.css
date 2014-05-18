@@ -18,26 +18,28 @@ and open the template in the editor.
     min-height: 150px;
     position: relative;
     font-size: 14px;
-    margin-bottom : 20px;
+    margin-bottom : 13px;
 }
 
 .description{
     color:  #28282e;
     width: 400px;
-
-    margin-left: auto;
-    margin-right: auto;
+    float:left;
+    margin-left: 50px;
+    margin-top: 30px;
+    margin-right: 15px;
 }
 
 .userName p{
     text-align: center;
     color: #ef4035;
-    padding-top: 30px;
     padding-left:  30px;
-    width:100px;
+    width:100px
 }
 
 .userName{
+    padding-top: 30px;
+float: left;
     width: 100px;
 }
 
@@ -54,8 +56,8 @@ and open the template in the editor.
 .containerSquare{
     opacity:0.9;
     float: left;
-    width:68pt;
-    height:68pt;
+    width:90px;
+    height:90px;
     color: white;
     text-align: center;
     vertical-align: middle;
@@ -68,21 +70,21 @@ and open the template in the editor.
 
 
 .NumberOfMintUps{
-    font-size: 50px;
-    width: 30px;
+    font-size: 40px !important;
+    width: 70px;
     position: absolute;
     text-align: center;
-    top: 100px;
-    right:30px;  
+    top: 110px;
+    right:10px;
     color:   #ef4035;
 }
 
 .mintUps{
     font-size: 12px;
-    width: 30px;
+    width: 50px;
     position: absolute;
-    top: 190px;
-    right:35px;  
+    top: 180px;
+    right:17px;
     color:   #ef4035;
 }
 

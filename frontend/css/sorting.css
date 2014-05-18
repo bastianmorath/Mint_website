@@ -33,6 +33,7 @@ and open the template in the editor.
 /*Höhe eines Elements*/
 .sortElement{
     height: 30px;
+    width: 80px;
 }
 
 .sorting ul{

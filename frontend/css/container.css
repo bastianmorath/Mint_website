@@ -1,0 +1,99 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 31, 2014, 10:49:38 AM
+    Author     : bastianmorath
+*/
+
+
+.container{
+    background-color: #f7f7f7;
+    width: 700px;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: 0px;
+    min-height: 150px;
+    position: relative;
+    font-size: 14px;
+    margin-bottom : 20px;
+}
+
+.description{
+    color:  #28282e;
+    width: 400px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.userName p{
+    text-align: center;
+    color: #ef4035;
+    padding-top: 30px;
+    padding-left:  30px;
+    width:100px;
+}
+
+.userName{
+    width: 100px;
+}
+
+
+
+.video{
+    margin-left : 150px;
+    margin-top: 0px;
+    margin-bottom: 40px;
+    width: 400px;
+    height: 250px;
+}
+
+.containerSquare{
+    opacity:0.9;
+    float: left;
+    width:68pt;
+    height:68pt;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 92px;
+    background-color:  dodgerblue;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+
+.NumberOfMintUps{
+    font-size: 50px;
+    width: 30px;
+    position: absolute;
+    text-align: center;
+    top: 100px;
+    right:30px;  
+    color:   #ef4035;
+}
+
+.mintUps{
+    font-size: 12px;
+    width: 30px;
+    position: absolute;
+    top: 190px;
+    right:35px;  
+    color:   #ef4035;
+}
+
+.upMintButton{
+    width: 50px;
+    position: absolute;
+    top: 120px;
+    right:20px;  
+
+}
+
+.upMintButton:hover{
+    cursor: pointer;
+}

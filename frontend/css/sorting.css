@@ -1,0 +1,88 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 12, 2014, 10:51:38 AM
+    Author     : bastianmorath
+*/
+
+/*Ganzer Div des Sortings*/
+.sorting{
+    position:fixed;
+    left: 50%;
+    margin-left: 360px;
+    margin-top:50px;
+}
+/*Ein Element (2014, 2013, 2012..)*/
+.sorting ul{
+    opacity: 0.5;
+    margin: 0px; 
+    padding: 15px; 
+    list-style-type: none; 
+    text-decoration: none;
+    text-align: center; 
+}
+.sorting ul li a{
+    padding: .4em 1em; 
+    color: #ef4035;
+    text-decoration: none; 
+
+}
+/*Höhe eines Elements*/
+.sortElement{
+    height: 30px;
+}
+
+.sorting ul{
+    margin-top: 50px;
+}
+.sortElement ul li a:hover { 
+    color: white; 
+    //background-color: white; 
+}
+
+.sortSquareLike{
+     opacity:0.9;
+    float: left;
+    width:30pt;
+    height:30pt;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px; 
+   background-color: royalblue;
+    position: absolute;
+    top: 9px;
+    right: 50px;
+}
+
+.sortSquareDate{
+    opacity:0.9;
+    float: left;
+    width:30pt;
+    height:30pt;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+    background-color:royalblue;
+    position: absolute;
+    top: 9px;
+    right: 0px;
+}
+
+.dateElements{
+     //position: fixed;
+     //left: 73%;
+}
+
+.chooseSorting{
+
+}
+
+.sorting{
+    position: fixed;
+    top:50px;
+}

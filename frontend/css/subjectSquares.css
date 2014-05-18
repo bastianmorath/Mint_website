@@ -1,0 +1,80 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 11, 2014, 10:54:15 PM
+    Author     : bastianmorath
+*/
+
+    .subjectSquares
+    {
+       width:710px;
+       height: 95px;
+       margin-left: auto;
+       margin-right: auto;
+       margin-top: 5px;
+    }
+    
+    .square:hover{
+         cursor: pointer;
+    }
+    
+    .centerwrapper
+    {
+        margin-left: auto;
+        margin-right: auto;
+        width:720px;
+        height: 95px;
+    }
+    
+  .square
+    {
+        opacity:0.9;
+        float: left;
+        margin:6px;
+        width:90px;
+        height:90px;
+        color: white;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 92px
+    }
+    
+    .square:last-child{
+        width: 89px;
+    }
+    
+    .square:first-child{
+        width: 89px;
+    }
+   
+
+    .square1{
+        background-color: dodgerblue ; 
+    }
+    
+    .square2{
+        background-color: green;
+    }
+    
+    .square3{
+        background-color:  lightseagreen ;
+    }
+    
+    .square4{
+        background-color: orange;
+    }
+    
+    .square5{
+        background-color: royalblue;
+    }
+    
+    .square6{
+        background-color: yellowgreen;
+    }
+    
+    .square7{
+        background-color:  lightslategrey  ;
+    }

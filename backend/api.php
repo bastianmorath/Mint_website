@@ -92,7 +92,7 @@ class API extends REST
 
         }
         $result = array();
-        $result[ 'posts' ] = $posts;
+        $result[ 'posts' ] = $posts;g
         $result[ 'admins' ] = $admins;
 
         $this->response( $this->json( $result ), 200 );
@@ -100,7 +100,7 @@ class API extends REST
 }
 
 $api = new API;
-// $api->processApi();
+$api->processApi();
 
 $headers = generateHeaders( "rest-example", "topsecret", "gr001" );
 print $headers['Authorization'];

@@ -1,0 +1,121 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 17, 2014, 3:43:26 PM
+    Author     : bastianmorath
+*/
+
+.bottomBar{
+    position: relative;
+    bottom:0px;
+    width: 700px;
+    height: 20px;
+    padding-bottom: 15px;
+    background-color: gainsboro;
+}
+
+.bottomBar p{
+    font-size: 12px;
+    color:  #28282e;
+    margin-top:9px;
+    width: 100px;
+    position: relative;
+    height:8px;
+}
+.date{
+    float: right;  
+    margin-right: 30px;
+}
+
+.numberOfComments{
+    float: left;  
+    margin-left:30px;
+
+}
+.showCommentsButton{
+    float:none;
+    margin-left:250px;
+    width:40px;
+}
+
+.showCommentsButton:hover{
+    cursor: pointer;
+}
+
+
+
+.commentBox{
+    background-color:  gainsboro;
+    overflow: auto;
+    width:700px;
+    margin-top: 0px;
+    font-size: 12px;
+}
+
+.comment {
+    margin-left: 30px;
+    margin-right: 30px;
+    overflow: auto;
+    border-top: 1px solid #28282e;
+    position: relative;
+}
+
+.commentUserName{
+    color:   #ef4035;
+    height: 30px;
+    width:100px;
+    position: relative;
+    left:530px;
+    bottom:20px;
+}
+
+.commentUserComment{
+    margin-left:10px;   
+    float:left;
+    width:500px;
+}
+
+.commentTextBox {
+    font-size: 12px;
+    color: #28282e;
+    padding-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    margin-left: 30px;
+    border: 0; 
+    height:20px; 
+    width: 635px; 
+    border: 1px grey solid;
+    border-radius: 5px;
+    border-color: grey;
+
+    -webkit-background-clip: padding-box; 
+    outline:0; 
+    resize: none;
+    max-height: 130px;
+}
+
+
+.commentSendButton{
+    color: #28282e;
+    text-decoration: none;
+    position: absolute;
+    bottom:20px;
+    right: 80px;
+
+}
+
+
+.commentSendButton:hover{
+    color:  #ef4035;
+    cursor: pointer;
+
+}
+
+.breakline{
+    width: 700px;
+    border-bottom: 1px solid #28282e;
+}

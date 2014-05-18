@@ -1,0 +1,138 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 17, 2014, 4:41:21 PM
+    Author     : bastianmorath
+*/
+
+.container p{
+    overflow: auto;
+    font-size: 13px;
+}
+.title{
+   font-size: 15px;
+    color: #ef4035;
+    padding-left: auto;
+    padding-right: auto;
+    padding-bottom: 15px; 
+    padding-top: 30px;
+    text-align: center;
+    float: none;
+}
+
+.desc{
+    color:  #28282e;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 15px;
+
+}
+
+.p_time{
+    color: #ef4035;
+    padding-left: 50px;
+
+}
+
+.time{
+    color:  #28282e;
+    padding-bottom: 15px;
+    padding-left: 50px;
+}
+
+.p_location{
+    color: #ef4035;
+    padding-left: 50px;
+}
+
+.location{
+    color:  #28282e;
+    padding-bottom: 30px;
+    padding-left: 50px;
+
+}
+
+
+
+
+
+.veranstaltungenMelden{
+    font-size: 13px;
+
+    width: 700px;
+    height: 460px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+
+    text-align: center;
+    z-index: 11; /* 1px higher than the overlay layer */
+    overflow: auto;
+    background-color: white;
+    position: relative;
+}
+
+.titleTextbox{ 
+    float:left;
+    height:20px;
+} 
+
+.descriptionTextbox{ 
+    height:20px; 
+    float:left;
+    max-height: 40px;
+}
+
+.timeTextbox{
+    float:left;
+    height:20px;
+}
+
+.locationTextbox{ 
+    float:left;
+    height:20px;
+} 
+
+.veranstaltungenMelden p{
+    color: #28282e;
+    float: left;
+    margin-left: 50px;
+    margin-right: 400px;
+    margin-bottom: 0px;
+}
+
+
+
+.veranstaltungenMelden textarea{
+    font-size: 12px;
+    color: #28282e;
+    padding-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    margin-left: 50px;
+    border: 0; 
+    width: 600px; 
+    border: 1px grey solid;
+    border-radius: 5px;
+    border-color: grey;
+
+    -webkit-background-clip: padding-box; 
+    outline:0; 
+    resize: none;
+}
+
+.sendButton{
+    color: #28282e;
+    text-decoration: none;
+    position: absolute;
+    left:615px;
+    top: 420px;
+    width:10px;
+}
+
+.sendButton:hover{
+    color:  #ef4035;
+}

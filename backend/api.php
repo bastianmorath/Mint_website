@@ -17,6 +17,7 @@ class API extends REST
     const DB = "web001_ksuster";
 
     private $db = NULL;
+    private $user = NULL;
 
     public function __construct() {
         parent::__construct();
@@ -33,6 +34,17 @@ class API extends REST
         if ( is_array( $data ) ) {
             return json_encode( $data );
         }
+    }
+
+    private function authenticate( $data ) {
+        if ( $this->user ){
+            return true;
+        }
+        $token = $data['token'];
+        $user = mysqli_fetch_assoc( mysqli_query( $this->db, "SELECT * FROM user WHERE token=$token") );
+        if ( !$user ) { return false; }
+        $this->user = $user;
+        return true;
     }
 
     public function processApi() {
@@ -56,6 +68,24 @@ class API extends REST
         return $this->json( $objects );
     }
 
+    public function comment() {
+        if ( $this->get_request_method() == "POST" ) {
+            $data = json_decode( file_get_contents('php://input'), true );
+            if ( !$this->authenticate( $data ) ){
+                $this->response( "unauthorized access", 400 );
+            }
+
+            // write the comment to the database
+            $comment = $data['data'];
+            $post_id = $comment['post_id'];
+            $comment_m = $comment['comment'];
+            $user_id = $this->user['user_id'];
+            $query = "INSERT INTO comment( post_id, comment, user_id ) VALUES( $post_id, '$comment_m', $user_id)";
+            mysqli_query( $this->db, $query );
+            $this->response( $this->json( $comment ), 200 );
+        }
+    }
+
     public function subject() {
         if ( $this->get_request_method() != "GET" ) {
             $this->response( '', 406 );
@@ -72,8 +102,9 @@ class API extends REST
     }
 
     public function post() {
+        header('Content-type: application/json; charset=UTF-8');
         if ( $this->get_request_method() != "GET" ) {
-            $this->response( '', 406 );
+            $this->response( 'not get', 406 );
         }
         // fetch all the posts, additionally add the data for the admins and subjects
         $posts_result = mysqli_query( $this->db,  "SELECT * FROM post p ORDER BY p.date DESC LIMIT 30");
@@ -92,16 +123,37 @@ class API extends REST
 
         }
         $result = array();
-        $result[ 'posts' ] = $posts;g
+        $result[ 'posts' ] = $posts;
         $result[ 'admins' ] = $admins;
 
         $this->response( $this->json( $result ), 200 );
+    }
+
+
+
+    public function login() {
+        if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+            $data = json_decode( file_get_contents('php://input'), true );
+            $user_id = $data[ 'user_id' ];
+            if ( !$user_id ) {
+                $this->response( "userid is not defined", 200 );
+            }
+            $user_result = mysqli_query( $this->db, "SELECT * FROM user WHERE user_id=$user_id" );
+            $user = mysqli_fetch_assoc( $user_result );
+            if ( !$user ) {
+                $this->response( "", 200 );
+            }
+            $this->response( $this->json($user), 200 );
+        }
+        else {
+            $this->response( "Error not post", 200 );
+        }
     }
 }
 
 $api = new API;
 $api->processApi();
 
-$headers = generateHeaders( "rest-example", "topsecret", "gr001" );
+/* $headers = generateHeaders( "rest-example", "topsecret", "gr001" );
 print $headers['Authorization'];
-print $headers['X-gr-AuthDate'];
+print $headers['X-gr-AuthDate']; */

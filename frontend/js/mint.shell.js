@@ -46,7 +46,7 @@ mint.shell = ( function () {
 
   //---------------------------BEGIN EVENTS HANDLERS-------------------------------
   onLogin = function ( ) {
-
+    mint.model.login( 4003155 );
   };
 
   //---------------------------BEGIN DOM FUNCTIONS-------------------------------

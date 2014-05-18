@@ -22,7 +22,7 @@ mint.model = ( function () {
   var
 
     configMap = {
-      api_url : "localhost"
+      api_url : '../backend'
     },
 
     stateMap = {
@@ -30,12 +30,24 @@ mint.model = ( function () {
       subjects : null,
       admins : null,
       posts : null,
-      comments : null
+      comments : null,
+      is_user_logged_in : false,
+      user : null
     },
 
     initModule, loadData, login,
-    subject, post, admin, comment,
+    subject, post, admin, comment, stringifyJsonWithAuth,
     isFakeData = true;
+
+  //---------------------------BEGIN UTILITY FUNCTIONS-------------------------------
+  stringifyJsonWithAuth = function ( data_map ) {
+    return JSON.stringify(
+      {
+        token : stateMap.user.token,
+        data : data_map
+      }
+    );
+  };
 
   //---------------------------END MODULE SCOPE VARIABLES-------------------------------
 
@@ -108,8 +120,18 @@ mint.model = ( function () {
 
     add = function ( comment ) {
       if ( comment.hasOwnProperty( 'comment') ){
-        comment.name = "Lukas Reichart";
+        comment.name = stateMap.user.name;
         stateMap.comments.insert( comment );
+
+        // send the comment to the server
+        $.ajax( {
+          type : "POST",
+          url : 'http://localhost/mint/backend/comment',
+          data : stringifyJsonWithAuth( comment ),
+          dataType : 'json'
+        }, function( data ) {
+
+        });
       }
 
       return comment;
@@ -124,7 +146,21 @@ mint.model = ( function () {
   //---------------------------END SUB MODULES-------------------------------
 
   login = function ( userid ) {
-
+    $.ajax( {
+        type : "POST",
+        url : 'http://localhost/mint/backend/login',
+        data : JSON.stringify({
+            user_id : userid
+        }),
+        dataType : 'json',
+        error : function ( xhr ) {
+          console.log( "Response failed" );
+        },
+        success : function ( data ) {
+          stateMap.user = data;
+          stateMap.is_user_logged_in = true;
+        }
+      });
   };
 
   // Begin utility function /loadData/
@@ -169,7 +205,8 @@ mint.model = ( function () {
     subject : subject,
     post : post,
     admin : admin,
-    comment : comment
+    comment : comment,
+    login : login
   };
 
 } () );

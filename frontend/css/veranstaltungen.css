@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : bastianmorath
 */
 
-.container p{
+ .container p{
     overflow: auto;
     font-size: 13px;
 }
@@ -67,7 +67,7 @@ and open the template in the editor.
     margin-left: auto;
     margin-right: auto;
     margin-top: 15px;
-
+margin-bottom: 15px;
     text-align: center;
     z-index: 11; /* 1px higher than the overlay layer */
     overflow: auto;

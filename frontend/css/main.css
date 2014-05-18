@@ -7,8 +7,8 @@
 */
 
 .wrapper{
-  font-family: Helvetica Neue;
-  
+  font-family: Helvetica Neue, Arsenal;
+  font-size: 14px;
   /*Disable selection of text*/
    -moz-user-select     : none;
  -khtml-user-select   : none;

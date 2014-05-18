@@ -27,11 +27,10 @@
 
 #navbar ul li a:hover {
     color: #ef4035;
-    /* background-color: white; */
 }
 
-#navbar li.selected a {
-  /* color: #ef4035; */
+#navbar  a {
+    cursor: pointer;
 }
 
 #navbar{

@@ -8,73 +8,89 @@ and open the template in the editor.
     Author     : bastianmorath
 */
 
-    .subjectSquares
-    {
-       width:710px;
-       height: 95px;
-       margin-left: auto;
-       margin-right: auto;
-       margin-top: 5px;
-    }
-    
-    .square:hover{
-         cursor: pointer;
-    }
-    
-    .centerwrapper
-    {
-        margin-left: auto;
-        margin-right: auto;
-        width:720px;
-        height: 95px;
-    }
-    
-  .square
-    {
-        opacity:0.9;
-        float: left;
-        margin:6px;
-        width:90px;
-        height:90px;
-        color: white;
-        text-align: center;
-        vertical-align: middle;
-        line-height: 92px
-    }
-    
-    .square:last-child{
-        width: 89px;
-    }
-    
-    .square:first-child{
-        width: 89px;
-    }
-   
+.subjectSquares {
+    width: 710px;
+    height: 95px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    padding-bottom: 12px;
 
-    .square1{
-        background-color: dodgerblue ; 
-    }
-    
-    .square2{
-        background-color: green;
-    }
-    
-    .square3{
-        background-color:  lightseagreen ;
-    }
-    
-    .square4{
-        background-color: orange;
-    }
-    
-    .square5{
-        background-color: royalblue;
-    }
-    
-    .square6{
-        background-color: yellowgreen;
-    }
-    
-    .square7{
-        background-color:  lightslategrey  ;
-    }
+}
+
+.square:hover {
+    cursor: pointer;
+}
+
+.centerwrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 720px;
+    height: 95px;
+}
+
+.square {
+    opacity: 0.9;
+    float: left;
+    margin: 6px;
+    width: 90px;
+    height: 90px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 92px;
+    position: relative;
+}
+
+.square:last-child {
+    width: 89px;
+}
+
+.square:first-child {
+    width: 89px;
+}
+
+.selectedBar {
+    background-color: #ef4035;
+    position: absolute;
+    bottom: 0;
+    width: 90px;
+    height: 6px;
+}
+
+.square:first-child .selectedBar {
+    width: 89px;
+
+}
+
+.square:last-child .selectedBar {
+    width: 89px;
+}
+
+.square1 {
+    background-color: dodgerblue;
+}
+
+.square2 {
+    background-color: green;
+}
+
+.square3 {
+    background-color: lightseagreen;
+}
+
+.square4 {
+    background-color: orange;
+}
+
+.square5 {
+    background-color: royalblue;
+}
+
+.square6 {
+    background-color: yellowgreen;
+}
+
+.square7 {
+    background-color: lightslategrey;
+}

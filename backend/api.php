@@ -5,8 +5,25 @@
  * Date: 5/11/14
  * Time: 10:53 PM
  */
+/*
+ * The MINT API
+ * General every request has the format:
+ * {
+ *   "token" : <string> // Access token
+ *   "data" : { // Any additional data needed in the request
+ *      <JSON>
+ *   }
+ * }
+ *
+ * General: every response has the format:
+ * {
+ *    <JSON> // The result data of the request
+ * }
+ * Error are passed as HTTP Error Codes.
+ */
 require_once("rest.inc.php");
 require_once("tam.php");
+require_once("model.php");
 
 class API extends REST
 {
@@ -18,15 +35,16 @@ class API extends REST
 
     private $db = NULL;
     private $user = NULL;
+    private $model = NULL;
 
     public function __construct() {
         parent::__construct();
         $this->dbConnect();
-
+        $this->model = new model();
     }
 
     // Begin UTILITY FUNCTIONS
-    // Begin /dbConntect/
+    // Begin /dbConnect/
     // Purpose: connects to the mysql database
     private function dbConnect() {
         $this->db = @mysqli_connect( "localhost", "web001_ksuster", "umhTs4WRBbWc-w-", "web001_ksuster") or die("Verbindung zu MySQL gescheitert" );
@@ -68,19 +86,7 @@ class API extends REST
     }
     // End utility function /convertMysqltoArray/
 
-    // Begin function /authenticate/
-    // Purpose: Checks the
-    private function authenticate( $data ) {
-        if ( $this->user ){
-            return true;
-        }
-        $token = $data['token'];
-        $user = mysqli_fetch_assoc( mysqli_query( $this->db, "SELECT * FROM user WHERE token=$token") );
-        if ( !$user ) { return false; }
-        $this->user = $user;
-        return true;
-    }
-    // End function /authenticate/
+
 
     // Begin function /processApi/
     // Purpose: is the main function of the API.
@@ -148,52 +154,83 @@ class API extends REST
 
     public function post() {
         header('Content-type: application/json; charset=UTF-8');
-        if ( $this->get_request_method() != "GET" ) {
-            $this->response( 'not get', 406 );
+        if ( $this->get_request_method() == "GET" ) {
+            $index = 0;
+            if ( isset( $_REQUEST[ 'index' ]) ) {
+                $index = $_REQUEST[ 'index' ];
+            }
+            $posts = $this->model->readPostsFromIndex( $index );
+
+            $this->response( $this->json( $posts ), 200 );
         }
-        // fetch all the posts, additionally add the data for the admins and subjects
-        $posts_result = mysqli_query( $this->db,  "SELECT * FROM post p ORDER BY p.date DESC LIMIT 30");
-        $posts = array(); $admins = array(); $subjects = array();
+        else if ( $this->get_request_method() == "POST" ) {
+            $data = json_decode( file_get_contents('php://input'), true );
 
-        while( $post = mysqli_fetch_assoc( $posts_result ) ) {
-            $posts[] = $post;
-
-            // check if this is a new admin
-            if ( !array_key_exists( $post['admin_id'], $admins ) ){
-                $admin_result = mysqli_query( $this->db, "SELECT * FROM admin a WHERE a.admin_id=$post[admin_id]" );
-                $admin = mysqli_fetch_assoc( $admin_result );
-                $admins[ $admin['admin_id'] ] = $admin;
+            // check if the user is an admin
+            if ( isset( $data['token'] ) && !$this->model->authenticate( $data ) ) {
+                $this->response( "Unauthorized", 401 );
             }
 
+            // check the data
 
+
+            $post_data = $data[ 'data' ];
+            $post_data[ 'admin_id' ] = 1;
+            $post = $this->model->addPost( $post_data );
+
+            if ( !isset( $post ) ){
+                return $this->response( "Failed to create post", 400 );
+            }
+
+            $this->response( $this->json( $post  ), 200 );
         }
-        $result = array();
-        $result[ 'posts' ] = $posts;
-        $result[ 'admins' ] = $admins;
+        else if ( $this->get_request_method() == "DELETE" ){
 
-        $this->response( $this->json( $result ), 200 );
+            $data = json_decode( file_get_contents('php://input'), true );
+
+            // check if the user is an admin
+            if ( isset( $data['token'] ) && !$this->model->authenticate( $data ) ) {
+                $this->response( "Unauthorized", 401 );
+            }
+
+            // check the data (needs to be improved )
+            $post_data = $data[ 'data' ];
+            if ( !isset($post_data) || !isset($post_data['post_id'] ) ){
+                return $this->response( "Failed to delete post", 400 );
+            }
+
+            if ( !$this->model->deletePost( $post_data ) ){
+                return $this->response( "Failed to delete post", 400 );
+            }
+            $this->response( "", 200 );
+        }
+
+        $this->response( 'The requested operation is not available', 400 );
     }
-
-
 
     public function login() {
         if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
             $data = json_decode( file_get_contents('php://input'), true );
-            $user_id = $data[ 'user_id' ];
-            if ( !$user_id ) {
-                $this->response( "userid is not defined", 200 );
+
+            $user = $this->model->login( $data );
+
+            if ( ! isset( $user ) ) {
+                $this->response( "Login failed", 200 );
             }
-            $user_result = mysqli_query( $this->db, "SELECT * FROM user WHERE user_id=$user_id" );
-            $user = mysqli_fetch_assoc( $user_result );
-            if ( !$user ) {
-                $this->response( "", 200 );
-            }
-            $this->response( $this->json($user), 200 );
+            $this->response( $this->json( $user ), 200 );
         }
         else {
             $this->response( "Error not post", 200 );
         }
     }
+
+    // Begin function /start/
+    // Purpose: The start functions the start data package, this function is called, when the
+    // site loaded
+    public function start() {
+
+    }
+    // End function /start/
 }
 
 $api = new API;

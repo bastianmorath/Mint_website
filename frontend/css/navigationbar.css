@@ -12,8 +12,8 @@
     padding: 15px; 
     list-style-type: none; 
     text-align: center; 
-    background-color: #ffffff 
-} 
+    background-color: #ffffff
+}
 
 #navbar ul li {  
     display: inline; 
@@ -35,4 +35,18 @@
 
 #navbar{
     border-top: 5px #ef4035 solid;
+    position: relative;
+}
+
+#navbar_user{
+    float:right;
+    margin-right: 20px;
+    margin-top: -29px;
+    font-size: 12px;
+    list-style-type: none;
+    text-align: center;
+}
+
+#navbar_user:hover {
+    color: #ef4035;
 }

@@ -6,36 +6,33 @@
         Purpose of the stylesheet follows.
 */
 
-.wrapper{
-  font-family: Helvetica Neue, Arsenal;
-  font-size: 14px;
-  /*Disable selection of text*/
-   -moz-user-select     : none;
- -khtml-user-select   : none;
- -webkit-user-select  : none;
- -o-user-select       : none;
- user-select          : none;
- 
- overflow: auto;
+.wrapper {
+    font-family: Helvetica Neue, Arsenal;
+    font-size: 14px;
+    /*Disable selection of text*/
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    min-width: 570px;
+    overflow: auto;
 }
 
-h1{
-  font-size: 2rem;
-  font-family: Helvetica Neue;
-  text-align : center;
+h1 {
+    font-size: 2rem;
+    font-family: Helvetica Neue;
+    text-align: center;
 }
 
-
-
-body{
-     position: relative;
-     margin: 0;
-     min-height: 100%;
-     background : #28282e;
-     font: Arial;
+body {
+    position: relative;
+    margin: 0;
+    min-height: 100%;
+    background: #28282e;
+    font: Arial;
 }
 
-html *
-{
-   font-family: Helvetica Neue;
+html * {
+    font-family: Helvetica Neue;
 }

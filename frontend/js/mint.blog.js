@@ -29,7 +29,8 @@ mint.blog = ( function () {
         subjects : [],
         sortBy : null
       },
-      is_loaded : false
+      is_loaded : false,
+      addPost_active : false
     },
     jqueryMap = {},
 
@@ -87,8 +88,10 @@ mint.blog = ( function () {
 
   // Begin event function /onAddPost/
   onAddPost = function () {
+    if ( stateMap.addPost_active ) { return; }
     var post_prop = Object.create(  mint.makePostProp() );
     post_prop.initModule( jqueryMap.$addPostContainer );
+    stateMap.addPost_active = true;
   };
   // End event handler /onAddPost/
   //---------------------------END EVENT HANDLERS-------------------------------
@@ -201,6 +204,9 @@ mint.blog = ( function () {
         showPosts();
       });
     }
+
+    // only for testing
+    $( '#navbar_add').click( onAddPost );
 
     stateMap.is_loaded = true;
 

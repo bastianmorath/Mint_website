@@ -25,38 +25,26 @@ class API extends REST
 
     }
 
+    // Begin UTILITY FUNCTIONS
+    // Begin /dbConntect/
+    // Purpose: connects to the mysql database
     private function dbConnect() {
         $this->db = @mysqli_connect( "localhost", "web001_ksuster", "umhTs4WRBbWc-w-", "web001_ksuster") or die("Verbindung zu MySQL gescheitert" );
         mysqli_set_charset( $this->db, 'utf8');
     }
+    // End /dbConnect/
 
+    // Begin function /json/
+    // Purpose: decodes some data into json
     private function json( $data ) {
         if ( is_array( $data ) ) {
             return json_encode( $data );
         }
     }
+    // End utility function /json/
 
-    private function authenticate( $data ) {
-        if ( $this->user ){
-            return true;
-        }
-        $token = $data['token'];
-        $user = mysqli_fetch_assoc( mysqli_query( $this->db, "SELECT * FROM user WHERE token=$token") );
-        if ( !$user ) { return false; }
-        $this->user = $user;
-        return true;
-    }
-
-    public function processApi() {
-        $func = strtolower( trim( str_replace( "/", "", $_REQUEST['rquest'] ) ) );
-        if ( (int) method_exists( $this, $func ) > 0 ) {
-            $this->$func();
-        }
-        else {
-            $this->response( '', 404 );
-        }
-    }
-
+    // Begin utility function /readDb/
+    // Purpose: a general read function for the database, that doesn't use any "WHERE" statements
     private function readDb( $type ) {
         $objects_result = mysqli_query( $this->db, "SELECT * FROM " . $type );
         $objects = array();
@@ -67,7 +55,48 @@ class API extends REST
 
         return $this->json( $objects );
     }
+    // End utility function /readDb/
 
+    // Begin utility function /convertMysqlToArray/
+    // Purpose: convers a result from a mysql Query to a php array and returns it
+    private function convertMysqlToArray( $objects_result ) {
+        $objects = array();
+        while( $object = mysqli_fetch_assoc( $objects_result ) ) {
+            $objects[] = $object;
+        }
+        return $objects;
+    }
+    // End utility function /convertMysqltoArray/
+
+    // Begin function /authenticate/
+    // Purpose: Checks the
+    private function authenticate( $data ) {
+        if ( $this->user ){
+            return true;
+        }
+        $token = $data['token'];
+        $user = mysqli_fetch_assoc( mysqli_query( $this->db, "SELECT * FROM user WHERE token=$token") );
+        if ( !$user ) { return false; }
+        $this->user = $user;
+        return true;
+    }
+    // End function /authenticate/
+
+    // Begin function /processApi/
+    // Purpose: is the main function of the API.
+    public function processApi() {
+        $func = strtolower( trim( str_replace( "/", "", $_REQUEST['rquest'] ) ) );
+        if ( (int) method_exists( $this, $func ) > 0 ) {
+            $this->$func();
+        }
+        else {
+            $this->response( '', 404 );
+        }
+    }
+
+
+    // Begin function /comment
+    // Purpose: The comment function is responsible for all REST Actions with the comment objects
     public function comment() {
         if ( $this->get_request_method() == "POST" ) {
             $data = json_decode( file_get_contents('php://input'), true );
@@ -84,15 +113,30 @@ class API extends REST
             mysqli_query( $this->db, $query );
             $this->response( $this->json( $comment ), 200 );
         }
+        else if ( $this->get_request_method() == "GET" ) {
+            $post_id = $_REQUEST['post_id'];
+            if ( !$post_id ) {
+                $post_id = "*";
+            }
+            $query = "SELECT * FROM comment WHERE post_id = $post_id";
+            $result = $this->convertMysqlToArray( mysqli_query( $this->db, $query ) );
+            $this->response( $this->json( $result ), 200 );
+        }
     }
+    // End function /comment/
 
+    // Begin function /subject/
+    // Purpose: The subject function is responsible for all REST Actions with the subject objects.
     public function subject() {
         if ( $this->get_request_method() != "GET" ) {
             $this->response( '', 406 );
         }
         $this->response(  $this->readDb( 'subject' ), 200 );
     }
+    // End function /subject/
 
+    // Begin function /admin/
+    // Purpose: The admin function is responsible for all REST actions withe the admin objects
     public function admin() {
         if ( $this->get_request_method() != "GET" ) {
             $this->response( '', 406 );
@@ -100,6 +144,7 @@ class API extends REST
 
         $this->response( $this->readDb( 'admin' ), 200 );
     }
+    // End function /admin/
 
     public function post() {
         header('Content-type: application/json; charset=UTF-8');

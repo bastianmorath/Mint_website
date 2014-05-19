@@ -168,21 +168,47 @@ mint.model = ( function () {
   // Arguments: optional callback
   // Returns: None
   // Throws: None
+  // Evnets: publishes the jquery Event "mainDataLoaded"
   // Example: loadData( function() { alert("Data was loaded" ) );
-  loadData = function ( callback ) {
+  loadData = function () {
     var data_map;
     stateMap.dataLoaded = false;
 
     if ( isFakeData ) {
       data_map = mint.fake.getData();
+
       stateMap.subjects = TAFFY( data_map.subjects );
       stateMap.admins = TAFFY( data_map.admins );
       stateMap.posts = TAFFY( data_map.posts );
       stateMap.comments = TAFFY( data_map.comments );
+
+      stateMap.dataLoaded = true;
+      $.gevent.publish( 'mainDataLoaded' );
+
+    }
+    else {
+      $.ajax({
+        type : "GET",
+        url : "http://localhost/mint/backend/start",
+        success : function ( data ) {
+          data_map = data;
+
+          // the subject.css_map has to be decoded
+          $.each( data_map.subjects, function ( i, subject ) {
+            subject.css_map = JSON.parse( subject.css_map );
+          });
+
+          stateMap.subjects = TAFFY( data_map.subjects );
+          stateMap.admins = TAFFY( data_map.admins );
+          stateMap.posts = TAFFY( data_map.posts );
+
+
+          stateMap.dataLoaded = true;
+          $.gevent.publish( 'mainDataLoaded' );
+        }
+      });
     }
 
-    stateMap.dataLoaded = true;
-    if ( callback ) { callback(); }
   };
   // End utility function /loadData/
 
@@ -194,9 +220,7 @@ mint.model = ( function () {
   // Example: initModule(  );
   initModule = function () {
     // load all the data
-    loadData( function () {
-      stateMap.dataLoaded = true;
-    });
+    loadData();
   };
   // End public function /initModule/
 
@@ -206,7 +230,8 @@ mint.model = ( function () {
     post : post,
     admin : admin,
     comment : comment,
-    login : login
+    login : login,
+    dataLoaded : function () { return stateMap.dataLoaded; }
   };
 
 } () );

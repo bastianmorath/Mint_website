@@ -20,7 +20,7 @@ mint.blog = ( function () {
   var
     configMap = {
       main_html: String()
-        + '<div class="sorting">\n   \n    <ul>\n\n        <li class="sortElement"><a href="">Sort by:</a></li>\n\n        <div class="chooseSorting">\n            <li class="sortElement"><a href="">Likes</a></li>\n            <li class="sortElement"><a href="">Date</a></li>\n        </div>\n<!--\n        <div class="dateElements">\n            <li class="sortElement"><a href="">2013</a></li>\n            <li class="sortElement"><a href="">2012</a></li>\n            <li class="sortElement"><a href="">2011</a></li>\n            <li class="sortElement"><a href="">2010</a></li>\n        </div>\n-->\n    </ul>\n</div>\n<div class="subjectSquares" >\n    <div class="centerwrapper">\n    </div>\n</div>',
+        + '<div class="sorting">\n   \n    <ul>\n\n        <li class="sortElement"><a href="">Sort by:</a></li>\n\n        <div class="chooseSorting">\n            <li class="sortElement"><a href="">Likes</a></li>\n            <li class="sortElement"><a href="">Date</a></li>\n        </div>\n<!--\n        <div class="dateElements">\n            <li class="sortElement"><a href="">2013</a></li>\n            <li class="sortElement"><a href="">2012</a></li>\n            <li class="sortElement"><a href="">2011</a></li>\n            <li class="sortElement"><a href="">2010</a></li>\n        </div>\n-->\n    </ul>\n</div>\n<div class="subjectSquares" >\n    <div class="centerwrapper">\n    </div>\n</div>\n<div id="addPostHolder" class="white_content">\n</div>',
       nav_square_html : '<div class = "square" id ="square_%id%">%name%<div class="selectedBar"></div></div>'
     },
     stateMap = {
@@ -34,7 +34,7 @@ mint.blog = ( function () {
     jqueryMap = {},
 
     initModule, setJqueryMap, showModule, hideModule,
-    appendSquares, showPosts, onSubjectfilterChanged,
+    appendSquares, showPosts, onSubjectfilterChanged, onAddPost,
     formatSubjectSquares;
 
   //---------------------------BEGIN UTILITY FUNCTIONS-------------------------------
@@ -50,7 +50,8 @@ mint.blog = ( function () {
     jqueryMap = {
       $container : $container,
       $squareContainer : $container.find( ".subjectSquares").find( ".centerwrapper" ),
-      $squares : []
+      $squares : [],
+      $addPostContainer : $container.find( "#addPostHolder" )
     };
   };
   // End utility function /setJqueryMap/
@@ -81,8 +82,15 @@ mint.blog = ( function () {
     }
     formatSubjectSquares();
     showPosts();
-
   };
+  // End event function /onSubjectfilterChanged/
+
+  // Begin event function /onAddPost/
+  onAddPost = function () {
+    var post_prop = Object.create(  mint.makePostProp() );
+    post_prop.initModule( jqueryMap.$addPostContainer );
+  };
+  // End event handler /onAddPost/
   //---------------------------END EVENT HANDLERS-------------------------------
 
   //---------------------------BEGIN DOM FUNCTIONS-------------------------------
@@ -181,8 +189,18 @@ mint.blog = ( function () {
     stateMap.$container = $container;
     setJqueryMap();
 
-    appendSquares();
-    showPosts();
+    // check if the data has already been loaded
+    if ( mint.model.dataLoaded() ) {
+      appendSquares();
+      showPosts();
+    }
+    else {
+      // as soon as the server loads the data, we can start adding our content :D
+      $.gevent.subscribe( jqueryMap.$container, 'mainDataLoaded', function () {
+        appendSquares();
+        showPosts();
+      });
+    }
 
     stateMap.is_loaded = true;
 
@@ -195,6 +213,7 @@ mint.blog = ( function () {
     showPosts : showPosts,
     showModule : showModule,
     hideModule : hideModule,
+    onAddPost : onAddPost,
     isLoaded : function () { return stateMap.is_loaded; }
   };
 

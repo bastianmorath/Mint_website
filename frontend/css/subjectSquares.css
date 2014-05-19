@@ -56,6 +56,7 @@ and open the template in the editor.
     bottom: 0;
     width: 90px;
     height: 6px;
+    display : none;
 }
 
 .square:first-child .selectedBar {

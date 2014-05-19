@@ -61,32 +61,6 @@ class API extends REST
     }
     // End utility function /json/
 
-    // Begin utility function /readDb/
-    // Purpose: a general read function for the database, that doesn't use any "WHERE" statements
-    private function readDb( $type ) {
-        $objects_result = mysqli_query( $this->db, "SELECT * FROM " . $type );
-        $objects = array();
-
-        while( $object = mysqli_fetch_assoc( $objects_result ) ) {
-            $objects[] = $object;
-        }
-
-        return $this->json( $objects );
-    }
-    // End utility function /readDb/
-
-    // Begin utility function /convertMysqlToArray/
-    // Purpose: convers a result from a mysql Query to a php array and returns it
-    private function convertMysqlToArray( $objects_result ) {
-        $objects = array();
-        while( $object = mysqli_fetch_assoc( $objects_result ) ) {
-            $objects[] = $object;
-        }
-        return $objects;
-    }
-    // End utility function /convertMysqltoArray/
-
-
 
     // Begin function /processApi/
     // Purpose: is the main function of the API.
@@ -137,7 +111,7 @@ class API extends REST
         if ( $this->get_request_method() != "GET" ) {
             $this->response( '', 406 );
         }
-        $this->response(  $this->readDb( 'subject' ), 200 );
+        $this->response(  $this->model->readDb( 'subject' ), 200 );
     }
     // End function /subject/
 
@@ -148,10 +122,13 @@ class API extends REST
             $this->response( '', 406 );
         }
 
-        $this->response( $this->readDb( 'admin' ), 200 );
+        $this->response( $this->model->readDb( 'admin' ), 200 );
     }
     // End function /admin/
 
+    // Begin function /post/
+    // Purpose: The post function is responsible for the REST Actions with the post database object
+    // It defines a methods to read, write, and delete posts
     public function post() {
         header('Content-type: application/json; charset=UTF-8');
         if ( $this->get_request_method() == "GET" ) {
@@ -179,7 +156,7 @@ class API extends REST
             $post = $this->model->addPost( $post_data );
 
             if ( !isset( $post ) ){
-                return $this->response( "Failed to create post", 400 );
+                $this->response( "Failed to create post", 400 );
             }
 
             $this->response( $this->json( $post  ), 200 );
@@ -189,23 +166,65 @@ class API extends REST
             $data = json_decode( file_get_contents('php://input'), true );
 
             // check if the user is an admin
-            if ( isset( $data['token'] ) && !$this->model->authenticate( $data ) ) {
+            if ( !$this->model->authenticate( $data ) ) {
                 $this->response( "Unauthorized", 401 );
             }
 
             // check the data (needs to be improved )
             $post_data = $data[ 'data' ];
             if ( !isset($post_data) || !isset($post_data['post_id'] ) ){
-                return $this->response( "Failed to delete post", 400 );
+                $this->response( "Failed to delete post", 400 );
             }
 
             if ( !$this->model->deletePost( $post_data ) ){
-                return $this->response( "Failed to delete post", 400 );
+                $this->response( "Failed to delete post", 400 );
             }
             $this->response( "", 200 );
         }
 
         $this->response( 'The requested operation is not available', 400 );
+    }
+    // End function post
+
+    // Begin function /prop_post/
+    // Purpose:
+    function post_prop () {
+        if ( $this->get_request_method() == "GET" ) {
+            // only admins can read the post_procs
+            $data = json_decode( file_get_contents('php://input'), true );
+
+            if ( !$this->model->authenticate( $data, true ) ){
+                $this->response( "Unauthorized", 401 );
+            }
+
+            $post_props = $this->model->readPostProps();
+            if ( !isset( $post_props) ){
+                $this->response( "failed to read post proposals", 400 );
+            }
+
+            $this->response( $this->json( $post_props ), 200 );
+        }
+        else if ( $this->get_request_method() == "POST" ) {
+            $data = json_decode( file_get_contents('php://input'), true );
+
+            // only users can be create post_props
+            if ( !$this->model->authenticate( $data ) ){
+                $this->response( "Unauthorized", 401 );
+            }
+
+            // check the data ...
+
+            $user = $this->model->getUser();
+            $post_prop_data = $data[ 'data' ];
+            $post_prop_data[ 'user_id' ] = $user[ 'user_id' ];
+
+            $post_prop = $this->model->addPostProp( $post_prop_data );
+            if ( !isset( $post_prop ) ) {
+                $this->response( "Post Proposal wasn't added", 400 );
+            }
+
+            $this->response( "", 200 );
+        }
     }
 
     public function login() {
@@ -228,7 +247,18 @@ class API extends REST
     // Purpose: The start functions the start data package, this function is called, when the
     // site loaded
     public function start() {
+        if ( $this->get_request_method() == "GET" ) {
+            $posts = $this->model->readPostsFromIndex( 0 );
+            $subjects = $this->model->readDb( 'subject');
+            $admins = $this->model->readDb( 'admin' );
 
+            $result = array();
+            $result['posts'] = $posts;
+            $result['subjects'] = $subjects;
+            $result['admins'] = $admins; // Achtung bei den Admins werden email und pw auch noch gesendet
+
+            $this->response( $this->json( $result ), 200 );
+        }
     }
     // End function /start/
 }

@@ -27,9 +27,7 @@ mint.fake = ( function () {
     {
       subject_id : "0",
       name : "Mathematik",
-      css_map : {
-        "background" : "dodgerblue"
-      }
+      css_map : {"background" : "dodgerblue"}
     },
     {
       subject_id : "1",
@@ -89,54 +87,54 @@ mint.fake = ( function () {
       subject_id: "0",
       admin_id: "2",
       date: "2014-03-19",
-      description: "Ich han voll kei Ahnig drum lueg ich so Sache",
+      content: "Ich han voll kei Ahnig drum lueg ich so Sache",
       url: "https://www.youtube.com/watch?v=gFntM0F9Vbw",
-      likes : "54"
+      mintUps : "54"
     },
     {
       post_id: "1",
       subject_id: "0",
       admin_id: "1",
       date: "2014-03-16",
-      description: "This is an awesome video:",
+      content: "This is an awesome video:",
       url: "https://www.youtube.com/watch?v=uCdlx2ZX-sc",
-      likes : "512"
+      mintUps : "512"
     },
     {
       post_id: "3",
       subject_id: "0",
       admin_id: "1",
       date: "2014-03-12",
-      description: "New Ted Talsk",
+      content: "New Ted Talsk",
       url: "http://www.ted.com/talks/daniel_reisel_the_neuroscience_of_restorative_justice",
-      likes : "200"
+      mintUps : "200"
     },
     {
       post_id: "2",
       subject_id: "0",
       admin_id: "1",
       date: "2014-03-04",
-      description: "Coding all night to get lucky.",
+      content: "Coding all night to get lucky.",
       url: "",
-      likes : "8"
+      mintUps : "8"
     },
     {
       post_id: "6",
       subject_id: "1",
       admin_id: "1",
       date: "2014-03-04",
-      description: "Coding all night to get lucky.",
+      content: "Coding all night to get lucky.",
       url: "",
-      likes : "8"
+      mintUps : "8"
     },
     {
       post_id: "7",
       subject_id: "1",
       admin_id: "1",
       date: "2014-03-04",
-      description: "Coding all night to get lucky.",
+      content: "Coding all night to get lucky.",
       url: "",
-      likes : "8"
+      mintUps : "8"
     }
   ];
 

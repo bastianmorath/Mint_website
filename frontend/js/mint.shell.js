@@ -20,7 +20,7 @@ mint.shell = ( function () {
   var
     configMap = {
       main_html : String() +
-        '<nav id="navbar">\n<ul id="popupAnimation">\n    <li><a id="navbar_blog" >HOME</a></li>\n    <li><a id="navbar_calendar" >VERANSTALTUNGEN</a></li>\n    <li><a id="navbar_about" >ABOUT</a></li>\n    <li><a href = "javascript:void(0)" onclick = "document.getElementById(\'light\').style.display = \'block\';\n                                document.getElementById(\'fade\').style.display = \'block\'">+</a></li>\n    <li><a id="navbar_login">Login</a></li>\n</ul>\n    <a id="navbar_user">Bastian Morath</a>\n\n    <div class="topLine"></div>\n</nav>\n<div id="blogHolder">\n    \n</div>\n<div id="calendarHolder">\n\n</div>\n<div id="aboutHolder">\n\n</div>\n'
+        '<nav id="navbar">\n<ul id="popupAnimation">\n    <li><a id="navbar_blog" >HOME</a></li>\n    <li><a id="navbar_calendar" >VERANSTALTUNGEN</a></li>\n    <li><a id="navbar_about" >ABOUT</a></li>\n    <!-- <li><a href = "javascript:void(0)" onclick = "document.getElementById(\'light\').style.display = \'block\';\n                                document.getElementById(\'fade\').style.display = \'block\'">+</a></li>\n    -->\n    <li><a id="navbar_add">+</a></li>\n    <li><a id="navbar_login">Login</a></li>\n</ul>\n    <a id="navbar_user">Bastian Morath</a>\n\n    <div class="topLine"></div>\n</nav>\n<div id="blogHolder">\n    \n</div>\n<div id="calendarHolder">\n\n</div>\n<div id="aboutHolder">\n\n</div>\n'
     },
     stateMap = {
       $container : null,

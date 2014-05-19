@@ -68,6 +68,20 @@ class model
     }
     // End utility function /convertMysqlToArray/
 
+    // Begin utility function /readDb/
+    // Purpose: a general read function for the database, that doesn't use any "WHERE" statements
+    public function readDb( $type ) {
+        $objects_result = mysqli_query( $this->db, "SELECT * FROM " . $type );
+        $objects = array();
+
+        while( $object = mysqli_fetch_assoc( $objects_result ) ) {
+            $objects[] = $object;
+        }
+
+        return $objects;
+    }
+    // End utility function /readDb/
+
     // Begin function /login/
     // Purpose: creates an access token and returns the data of the logged in user
     public function login( $user_data ) {
@@ -84,8 +98,12 @@ class model
     // admin rights
     public function authenticate( $data, $admin_required = false ) {
         if ( $this->user ){
-            return true;
+            return $this->user;
         }
+        if ( !isset( $data['token'] ) ){
+            return false;
+        }
+
         $token = $data['token'];
         $user = mysqli_fetch_assoc( mysqli_query( $this->db, "SELECT * FROM user WHERE token=$token") );
         if ( !$user ) { return false; }
@@ -97,8 +115,19 @@ class model
 
         return $user;
     }
+    // End function /authenticate/
 
-    // Begin Post API
+    // Begin function /getUser/
+    // If the user is logged in, this function returns the user object
+    public function getUser () {
+        if ( !isset($this->user ) ){
+            return null;
+        }
+        return $this->user;
+    }
+    // End function /getUser/
+
+    // Begin Post and post_prop API
     // Begin function /readPostsFromIndex/
     // Purpose: Reads a set of post from the database starting at $index
     public function readPostsFromIndex( $index=0 ) {
@@ -159,6 +188,32 @@ class model
 
     }
     // End function /deletePost/
+
+    public function addPostProp( $data ) {
+        $content = $data['content'];
+        $url = $data['url'];
+        $user_id = $data['user_id'];
+
+        $create_query = "INSERT INTO post_prop( content, url, user_id )".
+            "VALUES( '$content', '$url', $user_id )";
+
+        if ( !mysqli_query( $this->db, $create_query ) ) {
+            return null;
+        }
+
+        return true;
+    }
+
+    public function readPostProps() {
+        $read_query = "SELECT * FROM post_prop";
+        $raw = mysqli_query( $this->db, $read_query );
+
+        if ( !isset( $raw ) ) {
+            return null;
+        }
+
+        return $this->convertMysqlToArray( $raw );
+    }
 
     // End Post API
 }

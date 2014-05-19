@@ -44,6 +44,7 @@ mint.makePost = function () {
     jqueryMap = {
       $container : $container,
       $post_object : $post_object,
+      $subject_square : $post_object.find( '.containerSquare' ),
       $comment_box : $post_object.find( '.commentBox' ),
       $comment_container : $post_object.find( '.commentContainer' ),
       $show_comments : $post_object.find( '.showCommentsButton' ),
@@ -114,9 +115,9 @@ mint.makePost = function () {
         "%post_id%" : "post_" + post.post_id,
         "%name%" : admin.name,
         "%subject%" : subject.name,
-        "%desc%" : post.description,
+        "%desc%" : post.content,
         "%date%" : post.date,
-        "%likes%": post.likes
+        "%likes%": post.mintUps
       };
 
     html = configMap.main_html.replace( /%\w+%/g, function( all ) {
@@ -124,6 +125,12 @@ mint.makePost = function () {
     });
 
     stateMap.$container.append( html );
+
+    setJqueryMap();
+
+    // format the subject square with the right background color
+    jqueryMap.$subject_square.css( subject.css_map );
+
   };
   // End DOM function /appendHtml/
 
@@ -171,8 +178,9 @@ mint.makePost = function () {
     stateMap.$container = $container;
     stateMap.post_data = post_data;
 
+    // Note : appendHtml calls setJqueryMap()
     appendHtml();
-    setJqueryMap();
+
 
     // actions
     jqueryMap.$comment_box.css( { height : "0px" } );

@@ -9,11 +9,11 @@ and open the template in the editor.
 */
 
 .bottomBar {
-    position: absolute;
-    bottom: 0px;
     width: 700px;
     height: 39px;
     background-color: gainsboro;
+    vertical-align: bottom;
+    display: inline-block;
 }
 
 .bottomBar p {
@@ -50,13 +50,15 @@ and open the template in the editor.
     width: 700px;
     margin-top: 0px;
     font-size: 12px;
+    vertical-align: bottom;
+
 }
 
 .comment {
     margin-left: 30px;
     margin-right: 30px;
     overflow: auto;
-    border-bottom: 1px solid #28282e;
+    border-top: 1px solid #28282e;
     position: relative;
 }
 
@@ -85,7 +87,7 @@ and open the template in the editor.
     font-size: 12px;
     color: #28282e;
     padding-top: 5px;
-    margin-top: 20px;
+    margin-top: 0px;
     margin-bottom: 20px;
     margin-left: 30px;
     border: 0;

@@ -33,18 +33,34 @@ and open the template in the editor.
 .p_time{
     color: #ef4035;
     padding-left: 50px;
-
 }
 
 .time{
     color:  #28282e;
     padding-bottom: 15px;
     padding-left: 50px;
+    padding-right: 0px;
 }
+
+.beginDIV{
+    float: left !important;
+    width: 320px;
+    margin-right: 20px;
+}
+
+.endDIV{
+    float: right !important;
+    width: 320px;
+    margin-right: 22px !important;
+}
+
 
 .p_location{
     color: #ef4035;
     padding-left: 50px;
+}
+.endP{
+    margin-left: 20px !important;
 }
 
 .location{
@@ -85,9 +101,18 @@ margin-bottom: 15px;
     max-height: 40px;
 }
 
-.timeTextbox{
+
+.startTimebox{
     float:left;
     height:20px;
+    width: 270px !important;
+}
+
+.endTimebox{
+    float:left;
+    height:20px;
+    width:270px !important;
+margin-left: 20px !important;
 }
 
 .locationTextbox{ 

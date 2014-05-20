@@ -87,7 +87,7 @@ mint.fake = ( function () {
       subject_id: "0",
       admin_id: "2",
       date: "2014-03-19",
-      content: "Ich han voll kei Ahnig drum lueg ich so Sache",
+      content: 'Die gesellschaftliche Entwicklung und der Wohlstand        in der Schweiz hängen zu grossen Teilen mit den Leistungen        in Technik und Naturwissenschaft zusammen. Erfindergeist        und die intelligente Umsetzung von Grundlagenwissen haben        eine lange Tradition. Damit auch die heutigen Schülerinnen        und Schüler einen spannenden Zugang in die faszinierende Welt        von Mathematik, Informatik, Naturwissenschaft und Technik (MINT)      erhalten, haben wir die Plattform MINT initiiert.Die gesellschaftliche Entwicklung und der Wohlstand        in der Schweiz hängen zu grossen Teilen mit den Leistungen        in Technik und Naturwissenschaft zusammen. Erfindergeist        und die intelligente Umsetzung von Grundlagenwissen haben        eine lange Tradition. Damit auch die heutigen Schülerinnen        und Schüler einen spannenden Zugang in die faszinierende Welt        von Mathematik, Informatik, Naturwissenschaft und Technik (MINT)      erhalten, haben wir die Plattform MINT initiiert.',
       url: "https://www.youtube.com/watch?v=gFntM0F9Vbw",
       mintUps : "54"
     },
@@ -142,7 +142,7 @@ mint.fake = ( function () {
     {
       comment_id : "1",
       name : "Lukas Reichart",
-      comment : "Das ist ein tolles Video",
+      comment : "Das ist ein tolles VideoDas ist ein tolles VideoDas ist ein tolles VideoDas ist ein tolles VideoDas ist ein tolles VideoDas ist ein tolles VideoDas ist ein tolles VideoDas ist ein tolles VideoDas ist ein tolles VideoDas ist ein tolles VideoDas ist ein tolles Video",
       post_id : "1"
     },
     {

@@ -15,7 +15,7 @@ and open the template in the editor.
     margin-left: auto;
     margin-right:auto;
     margin-top: 0px;
-    min-height: 150px;
+    min-height: 250px;
     position: relative;
     font-size: 14px;
     margin-bottom : 13px;
@@ -28,6 +28,7 @@ and open the template in the editor.
     margin-left: 50px;
     margin-top: 30px;
     margin-right: 15px;
+    margin-bottom: 50px;
 }
 
 .userName p{
@@ -66,6 +67,7 @@ float: left;
     position: absolute;
     top: 0px;
     right: 0px;
+    margin-top: 0px;
 }
 
 
@@ -74,24 +76,24 @@ float: left;
     width: 70px;
     position: absolute;
     text-align: center;
-    top: 110px;
+    top: 90px;
     right:10px;
     color:   #ef4035;
 }
 
 .mintUps{
     font-size: 12px;
-    width: 50px;
+    width: 60px;
     position: absolute;
-    top: 180px;
-    right:17px;
+    top: 160px;
+    right:10px;
     color:   #ef4035;
 }
 
 .upMintButton{
     width: 50px;
     position: absolute;
-    top: 120px;
+    top: 100px;
     right:20px;  
 
 }

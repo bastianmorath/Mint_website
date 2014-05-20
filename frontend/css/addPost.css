@@ -8,126 +8,126 @@ and open the template in the editor.
     Author     : bastianmorath
 */
 
-
 .white_content {
-
     width: 700px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 15px;
-
+    margin-bottom: 12px;
     text-align: center;
     z-index: 11; /* 1px higher than the overlay layer */
     overflow: auto;
     background-color: white;
     position: relative;
-
 }
 
-.veranstaltungenMelden{
-    width:500px;
+.addPost {
+    width: 500px;
+    height: 350px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom : 40px;
-    margin-top:30px;
+    margin-bottom: 40px;
+    margin-top: 30px;
     color: #D6D2CB;
     outline: none;
     resize: none;
+    font-size: 13px;
 }
 
-.closeButton{
+.addPost .title {
+    padding-top: 5px !important;
+}
+
+.closeButton {
     color: #28282e;
     text-decoration: none;
     position: relative;
-    right:260px;
-   top: 440px;
-    width:10px;     
+    right: 260px;
+    top: 300px;
+    width: 10px;
 }
 
-.closeButton:hover{
-    color:  #ef4035;
-}
-.sendButton{
-    color: #28282e;
-    text-decoration: none;
-    position: relative;
-    left:200px;
-   top: 440px;
-    width:10px;
-}
-
-.sendButton:hover{
-    color:  #ef4035;
-}
-
-
-
-.title{
-    font-size: 20px;
+.closeButton:hover {
     color: #ef4035;
-    padding-left: auto;
-    padding-right: auto;
-    padding-bottom: 30px; 
-    padding-top: 10px;
-    text-align: center;
-    float: none;
+    cursor: pointer;
+
 }
 
+.sendButton {
+    color: #28282e;
+    text-decoration: none;
+    position: relative;
+    left: 170px;
+    top: 300px;
+    width: 10px;
+}
 
+.sendButton:hover {
+    color: #ef4035;
+    cursor: pointer;
 
-.nameTextbox{ 
-    float:left;
-    height:20px;
-} 
+}
 
-.descriptionTextbox{ 
-    height:20px; 
-    float:left;
+.addPostaddPost .title {
+    padding-top: 5px !important;
+}
+
+.nameTextbox {
+    float: left;
+    height: 20px;
+}
+
+.descriptionTextbox {
+    height: 20px;
+    float: left;
     max-height: 120px;
 }
 
-.URLTextbox{ 
-    float:left;
-    height:20px;
-} 
+.URLTextbox {
+    float: left;
+    height: 20px;
+}
 
-.veranstaltungenMelden p{
+.addPost p {
     color: #28282e;
     float: left;
     margin-right: 10px;
     margin-bottom: 3px;
 }
 
-
-
-textarea{
+.addPost textarea {
     font-size: 12px;
     color: #28282e;
     margin-top: 20px;
     margin-bottom: 15px;
-    border: 0; 
-    height:60px; 
-    width: 470px; 
+    border: 0;
+    height: 20px;
+    width: 470px;
     border: 1px grey solid;
     border-radius: 5px;
     border-color: grey;
 
-    -webkit-background-clip: padding-box; 
-    outline:0; 
+    -webkit-background-clip: padding-box;
+    outline: 0;
     resize: none;
 }
 
-
-.subjectSquaresInAddVeranstaltung{
-    width:95px;
-    height:710px;
-;
+.subjectSquaresInAddVeranstaltung {
+    width: 45px;
+    height: 400px;
+    margin-right: 31px;
+    margin-top: 12px;
     position: absolute;
     top: 0px;
     right: 0px;
+
 }
 
-.subjectSquaresInAddVeranstaltung .square{
-    margin-top:0px;
-    margin-bottom:10px;
+.subjectSquaresInAddVeranstaltung .square {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    width: 58px;
+    height: 58px;
+    font-size: 14px;
+    line-height: 60px;
+
 }
